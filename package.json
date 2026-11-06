@@ -1,0 +1,18 @@
+{
+  "name": "minimall-testlab",
+  "version": "1.0.0",
+  "description": "AI 활용 소프트웨어 공학 6강 - AI 기반 테스트 자동화 미니 프로젝트 (MiniMall)",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node scripts/test.js my_tests",
+    "test:ai": "node scripts/test.js ai_tests",
+    "test:flaky": "node scripts/test.js flaky_tests",
+    "coverage": "node scripts/coverage.js",
+    "mutate": "node scripts/mutate.js",
+    "mutate:ai": "node scripts/mutate.js --tests ai_tests",
+    "repeat": "node scripts/repeat.js",
+    "ci": "node scripts/ci.js"
+  }
+}
