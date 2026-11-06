@@ -1,0 +1,14 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: 품질 게이트 (테스트 · 줄 커버리지 · 변이 점수 · 불안정 검사)
+        run: npm run ci
