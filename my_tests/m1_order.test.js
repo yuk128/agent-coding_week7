@@ -5,6 +5,7 @@ const assert = require("node:assert/strict");
 const { addToCart, getCart } = require("../src/cart");
 const { createOrder, canTransition, changeStatus } = require("../src/order");
 const { expectCode, fresh } = require("./_helpers");
+const { createFakeClock } = require("../src/testkit");
 
 const ADDR = "서울시 중구 세종대로 110";
 const STATES = ["PENDING_PAYMENT", "PAID", "PREPARING", "SHIPPING", "DELIVERED", "CANCELED"];
@@ -135,10 +136,10 @@ test("[TC-O-10] 주문번호는 4자리로 순차 발급되고 주문 후 장바
 });
 
 test("[TC-O-11] 주문의 createdAt 은 시계의 현재 시각이다", () => {
-  const ctx = fresh();
+  const ctx = fresh({ clock: createFakeClock("2026-11-01T09:00:00.000Z") });
   addToCart(ctx, "u1", "P1", 1);
   const order = createOrder(ctx, "u1", { address: ADDR });
-  assert.equal(order.createdAt, ctx.clock.now().toISOString());
+  assert.equal(order.createdAt, "2026-11-01T09:00:00.000Z");
 });
 
 test("[TC-O-12] 마지막 재고 1개를 두 구매자가 주문하면 한 명만 성공하고 재고는 0 미만이 되지 않는다", () => {
